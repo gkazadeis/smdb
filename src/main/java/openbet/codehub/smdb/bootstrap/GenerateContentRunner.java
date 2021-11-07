@@ -30,7 +30,8 @@ public class GenerateContentRunner extends AbstractLogComponent implements Comma
                 Actor.builder().name("Benedict").surname("Cumberbatch").build(),
                 Actor.builder().name("Daniel").surname("Craig").build(),
                 Actor.builder().name("Johnny").surname("Depp").build(),
-                Actor.builder().name("Winona").surname("Ryder").build()
+                Actor.builder().name("Winona").surname("Ryder").build(),
+                Actor.builder().name("Uma").surname("Thurman").build()
         );
         //@formatter:on
 
@@ -57,40 +58,45 @@ public class GenerateContentRunner extends AbstractLogComponent implements Comma
 
         logger.info("{} producers created.", producers.size());
 
-        // Get all directors
+        // Get all producers
         producerService.findAll().forEach(p -> logger.info("{}", p));
 
         //@formatter:off
-       movieService.create(
+        List<Movie> movies = movieService.createAll(
                 Movie.builder()
                         .title("Tomb Raider")
-                        .description("Based on the popular video game")
+                        .description("Based on the once popular video game")
                         .category(Category.ACTION)
                         .year(2001)
                         .actor(actorService.findBySurname("Jolie"))
                         .actor(actorService.findBySurname("Craig"))
-                        .build()
-        );
-        //@formatter:on
-
-       movieService.create(
+                        .build(),
                 Movie.builder()
                         .title("Edward Scissorhands")
-                        .description("Modern day fairytale")
+                        .description("Modern day dark fairytale")
                         .category(Category.DRAMA)
                         .year(1990)
                         .actor(actorService.findBySurname("Depp"))
                         .actor(actorService.findBySurname("Ryder"))
                         .director(directorService.findBySurname("Burton"))
+                        .build(),
+                Movie.builder()
+                        .title("Kill Bill Vol 1")
+                        .description("Grindhouse inspired film about revenge")
+                        .category(Category.ACTION)
+                        .year(2003)
+                        .actor(actorService.findBySurname("Thurman"))
+                        .director(directorService.findBySurname("Tarantino"))
                         .build()
         );
         //@formatter:on
 
+        logger.info("{} movies created.", movies.size());
         // Get all movies
         movieService.findAll().forEach(m -> logger.info("{}", m));
 
         //@formatter:off
-        Series series1 = seriesService.create(
+        List<Series> series = seriesService.createAll(
                 Series.builder()
                         .title("Stranger Things")
                         .description("80s nostalgia epic thriller series")
@@ -103,6 +109,7 @@ public class GenerateContentRunner extends AbstractLogComponent implements Comma
 
         //@formatter:on
 
+        logger.info("{} series created.", series.size());
         // Get all series
         seriesService.findAll().forEach(s -> logger.info("{}", s));
 

@@ -3,6 +3,7 @@ package openbet.codehub.smdb.controller;
 import lombok.RequiredArgsConstructor;
 import openbet.codehub.smdb.domain.Actor;
 import openbet.codehub.smdb.service.ActorService;
+import openbet.codehub.smdb.transfer.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,12 +26,12 @@ public class ActorController {
      */
 
     @GetMapping("/all")
-    public List<Actor> findAllActors(){
-        return actorService.findAll();
+    public ResponseEntity<ApiResponse<List<Actor>>> findAllActors(){
+        return ResponseEntity.ok(ApiResponse.<List<Actor>>builder().data(actorService.findAll()).build());
     }
 
     @GetMapping(params = {"surname"})
-    public Actor findById(@RequestParam String surname) {
-        return actorService.findBySurname(surname);
+    public ResponseEntity<ApiResponse<Actor>> findBySurname(@RequestParam String surname) {
+        return ResponseEntity.ok(ApiResponse.<Actor>builder().data(actorService.findBySurname(surname)).build());
     }
 }
