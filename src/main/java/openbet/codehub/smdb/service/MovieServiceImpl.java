@@ -2,8 +2,8 @@ package openbet.codehub.smdb.service;
 
 import lombok.RequiredArgsConstructor;
 import openbet.codehub.smdb.domain.*;
-import openbet.codehub.smdb.repository.BaseRepository;
 import openbet.codehub.smdb.repository.MovieRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public class MovieServiceImpl extends BaseServiceImpl<Movie> implements MovieSer
     private final MovieRepository movieRepository;
 
     @Override
-    public BaseRepository<Movie, Long> getRepository() {
+    public JpaRepository<Movie, Long> getRepository() {
         return movieRepository;
     }
 

@@ -1,7 +1,9 @@
 package openbet.codehub.smdb.repository;
 
 import openbet.codehub.smdb.domain.Actor;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ActorRepository extends BaseRepository<Actor,Long> {
-
+@Repository
+public interface ActorRepository extends JpaRepository<Actor,Long> {
 }

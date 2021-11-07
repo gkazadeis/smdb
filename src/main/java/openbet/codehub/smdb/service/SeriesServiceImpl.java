@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import openbet.codehub.smdb.domain.Actor;
 import openbet.codehub.smdb.domain.Director;
 import openbet.codehub.smdb.domain.Series;
-import openbet.codehub.smdb.repository.BaseRepository;
 import openbet.codehub.smdb.repository.SeriesRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,7 +14,7 @@ public class SeriesServiceImpl extends BaseServiceImpl<Series> implements Series
     private final SeriesRepository seriesRepository;
 
     @Override
-    public BaseRepository<Series, Long> getRepository() {
+    public JpaRepository<Series, Long> getRepository() {
         return seriesRepository;
     }
 

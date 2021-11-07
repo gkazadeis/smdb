@@ -1,7 +1,9 @@
 package openbet.codehub.smdb.repository;
 
 import openbet.codehub.smdb.domain.Director;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface DirectorRepository extends BaseRepository<Director,Long> {
-
+@Repository
+public interface DirectorRepository extends JpaRepository<Director,Long> {
 }

@@ -2,8 +2,8 @@ package openbet.codehub.smdb.service;
 
 import lombok.RequiredArgsConstructor;
 import openbet.codehub.smdb.domain.Director;
-import openbet.codehub.smdb.repository.BaseRepository;
 import openbet.codehub.smdb.repository.DirectorRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,7 +12,7 @@ public class DirectorServiceImpl extends BaseServiceImpl<Director> implements Di
     private final DirectorRepository directorRepository;
 
     @Override
-    public BaseRepository<Director, Long> getRepository() {
+    public JpaRepository<Director, Long> getRepository() {
         return directorRepository;
     }
 

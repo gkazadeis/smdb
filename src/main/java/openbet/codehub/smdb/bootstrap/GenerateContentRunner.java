@@ -23,6 +23,7 @@ public class GenerateContentRunner extends AbstractLogComponent implements Comma
 
     @Override
     public void run(String... args) {
+        /*
         //@formatter:off
         List<Actor> actors = actorService.createAll(
                 Actor.builder().name("Angelina").surname("Jolie").build(),
@@ -112,6 +113,6 @@ public class GenerateContentRunner extends AbstractLogComponent implements Comma
         logger.info("{} series created.", series.size());
         // Get all series
         seriesService.findAll().forEach(s -> logger.info("{}", s));
-
+*/
     }
 }
