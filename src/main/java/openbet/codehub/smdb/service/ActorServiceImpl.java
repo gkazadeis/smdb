@@ -15,4 +15,9 @@ public class ActorServiceImpl extends BaseServiceImpl<Actor> implements ActorSer
     public BaseRepository<Actor, Long> getRepository() {
         return actorRepository;
     }
+
+    @Override
+    public Actor findBySurname(final String surname) {
+        return actorRepository.findAll().stream().filter(a -> a.getSurname().equals(surname)).findAny().orElse(null);
+    }
 }

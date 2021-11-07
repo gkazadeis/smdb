@@ -8,10 +8,11 @@ import java.util.List;
 
 @Repository
 public class ActorRepositoryImpl extends AbstractRepository<Actor> implements ActorRepository{
-    List<Actor> customerStorage = new ArrayList<>();
+    List<Actor> actorStorage = new ArrayList<>();
 
     @Override
     public List<Actor> getStorage() {
-        return customerStorage;
+        return actorStorage;
     }
+
 }
