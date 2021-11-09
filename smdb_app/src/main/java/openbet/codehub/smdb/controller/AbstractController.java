@@ -7,7 +7,6 @@ import openbet.codehub.smdb.transfer.ApiResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,28 +31,28 @@ public abstract class AbstractController<T extends BaseModel> extends AbstractLo
 		return ResponseEntity.ok(ApiResponse.<List<T>>builder().data(getBaseService().findAll()).build());
 	}
 
-	@Secured("ADMIN")
+	//@Secured("ADMIN")
 	@PostMapping
 	public ResponseEntity<ApiResponse<T>> create(@Valid @RequestBody final T entity) {
 		return new ResponseEntity<>(ApiResponse.<T>builder().data(getBaseService().create(entity)).build(),
 									getNoCacheHeaders(), HttpStatus.CREATED);
 	}
 
-	@Secured("ADMIN")
+	//@Secured("ADMIN")
 	@PutMapping
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void update(@Valid @RequestBody final T entity) {
 		getBaseService().update(entity);
 	}
 
-	@Secured("ADMIN")
+	//@Secured("ADMIN")
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable("id") final Long id) {
 		getBaseService().deleteById(id);
 	}
 
-	@Secured("ADMIN")
+	//@Secured("ADMIN")
 	@DeleteMapping
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@Valid @RequestBody final T entity) {

@@ -24,4 +24,9 @@ public class MovieServiceImpl extends BaseServiceImpl<Movie> implements MovieSer
         return movieRepository.findAll().stream().filter(m -> m.getCategory().toString().equals(category)).collect(Collectors.toList());
     }
 
+    @Override
+    public Movie findByTitle(final String title) {
+        return movieRepository.findAll().stream().filter(m -> m.getTitle().equals(title)).findAny().orElse(null);
+    }
+
 }

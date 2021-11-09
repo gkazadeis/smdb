@@ -5,7 +5,6 @@ import openbet.codehub.smdb.transfer.ApiError;
 import openbet.codehub.smdb.transfer.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -30,13 +29,13 @@ public class CustomizedExceptionHandler extends AbstractLogComponent {
 				HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	@ExceptionHandler(AccessDeniedException.class)
+	/*@ExceptionHandler(AccessDeniedException.class)
 	public final ResponseEntity<ApiResponse<?>> handleAccessDenials(final Exception ex, final WebRequest request) {
 		logger.error("Access denied due to lack of authorization privileges.", ex);
 		return new ResponseEntity<>(
 				ApiResponse.builder().apiError(getApiError(ex, HttpStatus.FORBIDDEN, request)).build(),
 				HttpStatus.FORBIDDEN);
-	}
+	}*/
 
 	@ExceptionHandler(NoSuchElementException.class)
 	public final ResponseEntity<ApiResponse<?>> handleNonExistence(final NoSuchElementException ex,

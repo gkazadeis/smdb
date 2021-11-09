@@ -2,6 +2,7 @@ package openbet.codehub.smdb.controller;
 
 import lombok.RequiredArgsConstructor;
 import openbet.codehub.smdb.domain.Movie;
+import openbet.codehub.smdb.service.BaseService;
 import openbet.codehub.smdb.service.MovieService;
 import openbet.codehub.smdb.transfer.ApiResponse;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,13 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/movies")
-public class MovieController {
+public class MovieController extends AbstractController<Movie> {
     private final MovieService movieService;
+
+    @Override
+    public BaseService<Movie, Long> getBaseService() {
+        return movieService;
+    }
 
     @GetMapping("/all")
     public ResponseEntity<ApiResponse<List<Movie>>> findAllMovies(){

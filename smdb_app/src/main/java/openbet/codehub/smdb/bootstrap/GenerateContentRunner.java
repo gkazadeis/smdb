@@ -24,7 +24,7 @@ public class GenerateContentRunner extends AbstractLogComponent implements Comma
 
 	@Override
 	public void run(String... args) {
-
+/*
 		//@formatter:off
 		List<Actor> actors = actorService.createAll(
 				Actor.builder().name("Angelina").surname("Jolie").build(),
@@ -34,7 +34,7 @@ public class GenerateContentRunner extends AbstractLogComponent implements Comma
 				Actor.builder().name("Johnny").surname("Depp").build(),
 				Actor.builder().name("Winona").surname("Ryder").build(),
 				Actor.builder().name("Uma").surname("Thurman").build()
-												   );
+		);
 		//@formatter:on
 
 		logger.info("{} actors created.", actors.size());
@@ -70,6 +70,7 @@ public class GenerateContentRunner extends AbstractLogComponent implements Comma
 					 .description("Based on the once popular video game")
 					 .category(Category.ACTION)
 					 .year(2001)
+					 .rating(6.78)
 					 //.actor(actorService.findBySurname("Jolie"))
 					 //.actor(actorService.findBySurname("Craig"))
 					 .build(),
@@ -78,6 +79,7 @@ public class GenerateContentRunner extends AbstractLogComponent implements Comma
 					 .description("Modern day dark fairytale")
 					 .category(Category.DRAMA)
 					 .year(1990)
+					 .rating(7.8)
 					 //.actor(actorService.findBySurname("Depp"))
 					 //.actor(actorService.findBySurname("Ryder"))
 					 //.director(directorService.findBySurname("Burton"))
@@ -87,15 +89,34 @@ public class GenerateContentRunner extends AbstractLogComponent implements Comma
 					 .description("Grindhouse inspired film about revenge")
 					 .category(Category.ACTION)
 					 .year(2003)
+					 .rating(9.5)
 					 //.actor(actorService.findBySurname("Thurman"))
 					 //.director(directorService.findBySurname("Tarantino"))
 					 .build()
-												   );
+		);
 		//@formatter:on
 
 		logger.info("{} movies created.", movies.size());
 		// Get all movies
 		movieService.findAll().forEach(m -> logger.info("{}", m));
+
+		List<Actor> actors = actorService.createAll(
+				Actor.builder()
+						.name("Angelina")
+						.surname("Jolie")
+						.movie(movieService.findByTitle("Tomb Raider"))
+						.build(),
+				Actor.builder()
+						.name("Johnny")
+						.surname("Depp")
+						.movie(movieService.findByTitle("Edward Scissorhands"))
+						.build(),
+				Actor.builder()
+						.name("Winona")
+						.surname("Ryder")
+						.movie(movieService.findByTitle("Edward Scissorhands"))
+						.build()
+		);
 /*
         //@formatter:off
         List<Series> series = seriesService.createAll(
