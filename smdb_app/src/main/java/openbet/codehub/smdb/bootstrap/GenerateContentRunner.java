@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -24,23 +25,7 @@ public class GenerateContentRunner extends AbstractLogComponent implements Comma
 
 	@Override
 	public void run(String... args) {
-/*
-		//@formatter:off
-		List<Actor> actors = actorService.createAll(
-				Actor.builder().name("Angelina").surname("Jolie").build(),
-				Actor.builder().name("Scarlett").surname("Johansson").build(),
-				Actor.builder().name("Benedict").surname("Cumberbatch").build(),
-				Actor.builder().name("Daniel").surname("Craig").build(),
-				Actor.builder().name("Johnny").surname("Depp").build(),
-				Actor.builder().name("Winona").surname("Ryder").build(),
-				Actor.builder().name("Uma").surname("Thurman").build()
-		);
-		//@formatter:on
 
-		logger.info("{} actors created.", actors.size());
-
-		// Get all actors
-		actorService.findAll().forEach(a -> logger.info("{}", a));
 /*
         //@formatter:off
         List<Director> directors = directorService.createAll(
@@ -71,8 +56,6 @@ public class GenerateContentRunner extends AbstractLogComponent implements Comma
 					 .category(Category.ACTION)
 					 .year(2001)
 					 .rating(6.78)
-					 //.actor(actorService.findBySurname("Jolie"))
-					 //.actor(actorService.findBySurname("Craig"))
 					 .build(),
 				Movie.builder()
 					 .title("Edward Scissorhands")
@@ -80,9 +63,6 @@ public class GenerateContentRunner extends AbstractLogComponent implements Comma
 					 .category(Category.DRAMA)
 					 .year(1990)
 					 .rating(7.8)
-					 //.actor(actorService.findBySurname("Depp"))
-					 //.actor(actorService.findBySurname("Ryder"))
-					 //.director(directorService.findBySurname("Burton"))
 					 .build(),
 				Movie.builder()
 					 .title("Kill Bill Vol 1")
@@ -90,9 +70,14 @@ public class GenerateContentRunner extends AbstractLogComponent implements Comma
 					 .category(Category.ACTION)
 					 .year(2003)
 					 .rating(9.5)
-					 //.actor(actorService.findBySurname("Thurman"))
-					 //.director(directorService.findBySurname("Tarantino"))
-					 .build()
+					 .build(),
+				Movie.builder()
+						.title("Pirates of the Caribbean")
+						.description("Great pirate movie")
+						.category(Category.ACTION)
+						.year(2003)
+						.rating(8.1)
+						.build()
 		);
 		//@formatter:on
 
@@ -100,23 +85,32 @@ public class GenerateContentRunner extends AbstractLogComponent implements Comma
 		// Get all movies
 		movieService.findAll().forEach(m -> logger.info("{}", m));
 
-		List<Actor> actors = actorService.createAll(
+		actorService.createAll(
 				Actor.builder()
 						.name("Angelina")
 						.surname("Jolie")
-						.movie(movieService.findByTitle("Tomb Raider"))
 						.build(),
 				Actor.builder()
 						.name("Johnny")
 						.surname("Depp")
-						.movie(movieService.findByTitle("Edward Scissorhands"))
 						.build(),
 				Actor.builder()
 						.name("Winona")
 						.surname("Ryder")
-						.movie(movieService.findByTitle("Edward Scissorhands"))
 						.build()
 		);
+
+		Actor a1 = actorService.findBySurname("Depp");
+		Actor a2 = actorService.findBySurname("Ryder");
+		Movie m1 = movieService.findByTitle("Edward Scissorhands");
+		Movie m2 = movieService.findByTitle("Pirates of the Caribbean");
+
+		m1.getActors().addAll(Arrays.asList(a1, a2));
+		movieService.update(m1);
+
+		m2.getActors().add(a1);
+		movieService.update(m2);
+
 /*
         //@formatter:off
         List<Series> series = seriesService.createAll(

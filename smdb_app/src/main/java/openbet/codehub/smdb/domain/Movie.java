@@ -41,12 +41,13 @@ public class Movie extends BaseModel {
     @Column(length = 15, nullable = false)
     private Category category;
 
-    @JsonManagedReference("actors")
-    @Singular
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "movie")
-    private List<Actor> actors = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name="ACTORS_MOVIES",
+            joinColumns= @JoinColumn(name="MOVIE_ID", referencedColumnName="ID"),
+            inverseJoinColumns= @JoinColumn(name="ACTOR_ID", referencedColumnName="ID")
+    )
+    private List<Actor> actors;
 
     // Many to many, good luck with that
     /*@Singular

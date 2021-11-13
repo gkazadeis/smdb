@@ -1,15 +1,14 @@
 package openbet.codehub.smdb.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Data
@@ -31,9 +30,9 @@ public class Actor extends BaseModel {
     @Column(length = 20, nullable = false, unique = true)
     private String surname;
 
-    @JsonBackReference("actors")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Movie movie;
+    @JsonIgnore
+    @ManyToMany(mappedBy="actors",fetch=FetchType.EAGER)
+    private List<Movie> movies;
 
     /*@ManyToMany
     @JoinTable(
