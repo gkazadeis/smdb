@@ -16,8 +16,6 @@ import java.util.Set;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "ACTORS") // How to create an index to a column that exists in parent class?
-@SequenceGenerator(name = "idGenerator", sequenceName = "ACTORS_SEQ", initialValue = 1, allocationSize = 1)
 public class Actor extends Person {
 
     @JsonIgnore

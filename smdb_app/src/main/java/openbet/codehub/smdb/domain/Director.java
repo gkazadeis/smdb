@@ -17,8 +17,6 @@ import java.util.Set;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "DIRECTORS")
-@SequenceGenerator(name = "idGenerator", sequenceName = "DIRECTORS_SEQ", initialValue = 1, allocationSize = 1)
 public class Director extends Person {
     @JsonIgnore
     @ManyToMany(mappedBy="directors",fetch=FetchType.LAZY)

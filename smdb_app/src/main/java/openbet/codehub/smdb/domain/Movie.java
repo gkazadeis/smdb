@@ -33,11 +33,11 @@ public class Movie extends Feature {
     @JoinTable(
             name="ACTORS_MOVIES",
             joinColumns= @JoinColumn(name="MOVIE_ID", referencedColumnName="ID"),
-            inverseJoinColumns= @JoinColumn(name="ACTOR_ID", referencedColumnName="ID")
+            inverseJoinColumns= @JoinColumn(name="PERSON_ID", referencedColumnName="ID")
     )
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<Actor> actors = new HashSet<>();
+    private Set<Person> actors = new HashSet<>();
 
     @Singular
     @JsonIgnore
@@ -45,11 +45,11 @@ public class Movie extends Feature {
     @JoinTable(
             name="DIRECTORS_MOVIES",
             joinColumns= @JoinColumn(name="MOVIE_ID", referencedColumnName="ID"),
-            inverseJoinColumns= @JoinColumn(name="DIRECTOR_ID", referencedColumnName="ID")
+            inverseJoinColumns= @JoinColumn(name="PERSON_ID", referencedColumnName="ID")
     )
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<Director> directors = new HashSet<>();
+    private Set<Person> directors = new HashSet<>();
 
     @Singular
     @JsonIgnore
@@ -57,10 +57,10 @@ public class Movie extends Feature {
     @JoinTable(
             name="PRODUCERS_MOVIES",
             joinColumns= @JoinColumn(name="MOVIE_ID", referencedColumnName="ID"),
-            inverseJoinColumns= @JoinColumn(name="PRODUCER_ID", referencedColumnName="ID")
+            inverseJoinColumns= @JoinColumn(name="PERSON_ID", referencedColumnName="ID")
     )
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<Producer> producers = new HashSet<>();
+    private Set<Person> producers = new HashSet<>();
 
 }
