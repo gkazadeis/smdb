@@ -6,7 +6,7 @@ import openbet.codehub.smdb.transfer.PersonDetails;
 import java.util.List;
 
 public interface ActorService extends BaseService<Actor, Long> {
-    Actor findBySurname(String surname);
+    List<Actor> findBySurname(String surname);
 
     List<PersonDetails> findAllLazy();
 }

@@ -3,8 +3,14 @@ package openbet.codehub.smdb.service;
 import lombok.RequiredArgsConstructor;
 import openbet.codehub.smdb.domain.Director;
 import openbet.codehub.smdb.repository.DirectorRepository;
+import openbet.codehub.smdb.transfer.PersonDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -17,7 +23,16 @@ public class DirectorServiceImpl extends BaseServiceImpl<Director> implements Di
     }
 
     @Override
-    public Director findBySurname(final String surname) {
-        return directorRepository.findAll().stream().filter(d -> d.getSurname().equals(surname)).findAny().orElse(null);
+    @Transactional(propagation = Propagation.REQUIRED, readOnly=true, rollbackFor = Exception.class)
+    public List<PersonDetails> findAllLazy() {
+        List<PersonDetails> personDetails = new ArrayList<>();
+        directorRepository.findAllLazy().forEach(director -> personDetails.add(
+                new PersonDetails(
+                        director,
+                        director.getMovies(),
+                        director.getSeries()
+                )
+        ));
+        return personDetails;
     }
 }

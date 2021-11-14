@@ -32,8 +32,14 @@ public class MovieServiceImpl extends BaseServiceImpl<Movie> implements MovieSer
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly=true, rollbackFor = Exception.class)
     public Movie findByTitle(final String title) {
-        return movieRepository.findAll().stream().filter(m -> m.getTitle().equals(title)).findAny().orElse(null);
+        return movieRepository.findByTitle(title);
+    }
+
+    @Override
+    public List<Movie> findTopRated(final int topNumber) {
+        return movieRepository.findTopRated(topNumber);
     }
 
     @Override

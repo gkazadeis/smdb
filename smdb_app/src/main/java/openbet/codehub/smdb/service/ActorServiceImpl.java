@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,8 +24,8 @@ public class ActorServiceImpl extends BaseServiceImpl<Actor> implements ActorSer
     }
 
     @Override
-    public Actor findBySurname(final String surname) {
-        return actorRepository.findAll().stream().filter(a -> a.getSurname().equals(surname)).findAny().orElse(null);
+    public List<Actor> findBySurname(final String surname) {
+        return actorRepository.findAll().stream().filter(a -> a.getSurname().equals(surname)).collect(Collectors.toList());
     }
 
     @Override

@@ -35,4 +35,14 @@ public class MovieController extends AbstractController<Movie> {
         return ResponseEntity.ok(ApiResponse.<List<Movie>>builder().data(movieService.findByCategory(category)).build());
     }
 
+    @GetMapping(params = {"title"})
+    public ResponseEntity<ApiResponse<Movie>> findByTitle(@RequestParam String title) {
+        return ResponseEntity.ok(ApiResponse.<Movie>builder().data(movieService.findByTitle(title)).build());
+    }
+
+    @GetMapping(params = {"top_rated"})
+    public ResponseEntity<ApiResponse<List<Movie>>> findByTitle(@RequestParam int top_rated) {
+        return ResponseEntity.ok(ApiResponse.<List<Movie>>builder().data(movieService.findTopRated(top_rated)).build());
+    }
+
 }

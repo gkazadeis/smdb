@@ -22,120 +22,29 @@ public class GenerateContentRunner extends AbstractLogComponent implements Comma
 
 	@Override
 	public void run(String... args) {
-/*
-		//@formatter:off
-		List<Movie> movies = movieService.createAll(
-				Movie.builder()
-					 .title("Tomb Raider")
-					 .description("Based on the once popular video game")
-					 .category(Category.ACTION)
-					 .year(2001)
-					 .rating(6.78)
-					 .build(),
-				Movie.builder()
-					 .title("Edward Scissorhands")
-					 .description("Modern day dark fairytale")
-					 .category(Category.DRAMA)
-					 .year(1990)
-					 .rating(7.8)
-					 .build(),
-				Movie.builder()
-					 .title("Kill Bill Vol 1")
-					 .description("Grindhouse inspired film about revenge")
-					 .category(Category.ACTION)
-					 .year(2003)
-					 .rating(9.5)
-					 .build(),
-				Movie.builder()
-						.title("Pirates of the Caribbean")
-						.description("Great pirate movie")
-						.category(Category.ACTION)
-						.year(2003)
-						.rating(8.1)
-						.build()
-		);
-		//@formatter:on
-
-		logger.info("{} movies created.", movies.size());
-		// Get all movies
-		movieService.findAll().forEach(m -> logger.info("{}", m));
-
-		actorService.createAll(
-				Actor.builder()
-						.name("Angelina")
-						.surname("Jolie")
-						.build(),
-				Actor.builder()
-						.name("Johnny")
-						.surname("Depp")
-						.build(),
-				Actor.builder()
-						.name("Winona")
-						.surname("Ryder")
-						.build()
-		);
-
-
-        //@formatter:off
-        List<Director> directors = directorService.createAll(
-                Director.builder().name("Tim").surname("Burton").build(),
-                Director.builder().name("Quentin").surname("Tarantino").build(),
-                Director.builder().name("Christopher").surname("Nolan").build()
-        );
-        //@formatter:on
-
-        logger.info("{} directors created.", directors.size());
-
-        //@formatter:off
-        List<Producer> producers = producerService.createAll(
-                Producer.builder().name("Kevin").surname("Feige").build()
-        );
-        //@formatter:on
-
-        logger.info("{} producers created.", producers.size());
-
-        // Get all producers
-        producerService.findAll().forEach(p -> logger.info("{}", p));
-
-
-		Actor a1 = actorService.find(2L);
-		Actor a2 = actorService.find(3L);
-		//Actor a3 = actorService.find(2L);
-		Director d1 = directorService.find(1L);
-		Movie m1 = movieService.findByTitle("Edward Scissorhands");
-		Movie m2 = movieService.findByTitle("Pirates of the Caribbean");
-
-		movieService.addActor(m1, a1);
-
-
-
-		/*m1.getActors().add(a1);
-		movieService.update(m1);
-		m1.getActors().add(a2);
-		m1.getDirectors().add(d1);
-		movieService.update(m1);
-
-		m2.getActors().add(a1);
-		movieService.update(m2);*/
 
 		//@formatter:off
-		Actor a1 = actorService.create(
-				Actor.builder().name("Johnny").surname("Depp").build()
-		);
+		Person a1 = actorService.create(Actor.builder().name("Johnny").surname("Depp").build());
+		Person a2 =	actorService.create(Actor.builder().name("Winona").surname("Ryder").build());
+		Person a3 =	actorService.create(Actor.builder().name("Uma").surname("Thurman").build());
+		Person a4 =	actorService.create(Actor.builder().name("Lucy").surname("Liu").build());
+		Person a5 =	actorService.create(Actor.builder().name("Matthew").surname("McConaughey").build());
+		Person a6 =	actorService.create(Actor.builder().name("Robert").surname("Downey Jr.").build());
+		Person a7 =	actorService.create(Actor.builder().name("Scarlett").surname("Johansson").build());
+		Person a8 =	actorService.create(Actor.builder().name("Sarah Michelle").surname("Gellar").build());
+		Person a9 =	actorService.create(Actor.builder().name("Ethan").surname("Hawke").build());
+		Person a10 = actorService.create(Actor.builder().name("Maya").surname("Hawke").build());
 
-		Actor a2 =	actorService.create(
-				Actor.builder().name("Winona").surname("Ryder").build()
-		);
+		Person d1 = directorService.create(Director.builder().name("Tim").surname("Burton").build());
+		Person d2 = directorService.create(Director.builder().name("Quentin").surname("Tarantino").build());
+		Person d3 = directorService.create(Director.builder().name("Christopher").surname("Nolan").build());
+		Person d4 = directorService.create(Director.builder().name("Joss").surname("Whedon").build());
+		Person d5 = directorService.create(Director.builder().name("Matt").surname("Duffer").build());
+		Person d6 = directorService.create(Director.builder().name("Ross").surname("Duffer").build());
 
-		Director d1 = directorService.create(
-				Director.builder().name("Tim").surname("Burton").build()
-		);
+		Producer p1 = producerService.create(Producer.builder().name("Kevin").surname("Feige").build());
 
-		Producer p1 = producerService.create(
-				Producer.builder().name("Tim").surname("Burton").build()
-		);
-
-		movieService.create(
+		movieService.createAll(
 				Movie.builder()
 						.title("Edward Scissorhands")
 						.description("Modern day dark fairytale")
@@ -144,8 +53,52 @@ public class GenerateContentRunner extends AbstractLogComponent implements Comma
 						.rating(7.8)
 						.actors(Set.of(a1, a2))
 						.director(d1)
+						.producer(d1)
+						.build(),
+				Movie.builder()
+						.title("Kill Bill Vol 1")
+						.description("Grindhouse inspired film about revenge")
+						.category(Category.ACTION)
+						.year(2003)
+						.rating(9.5)
+						.actors((Set.of(a3, a4)))
+						.director(d2)
+						.build(),
+				Movie.builder()
+						.title("Pirates of the Caribbean")
+						.description("Great pirate movie")
+						.category(Category.ACTION)
+						.year(2003)
+						.rating(8.1)
+						.actor(a1)
+						.build(),
+				Movie.builder()
+						.title("Interstellar")
+						.description("Space epicness")
+						.category(Category.DRAMA)
+						.year(2014)
+						.rating(8.62)
+						.actor(a5)
+						.director(d3)
+						.build(),
+				Movie.builder()
+						.title("The Avengers")
+						.description("Avengers asseble")
+						.category(Category.ACTION)
+						.year(2012)
+						.rating(8.0)
+						.actors(Set.of(a6, a7))
+						.director(d4)
 						.producer(p1)
-						.build());
+						.build(),
+				Movie.builder()
+						.title("Tomb Raider")
+						.description("Based on the once popular video game")
+						.category(Category.ACTION)
+						.year(2001)
+						.rating(6.78)
+						.build()
+		);
 
 		seriesService.createAll(
                 Series.builder()
@@ -154,8 +107,21 @@ public class GenerateContentRunner extends AbstractLogComponent implements Comma
                         .category(Category.HORROR)
                         .startYear(2016)
                         .seasons(3)
-                        .actor(a2)
-                        .build()
+						.rating(8.7)
+                        .actors(Set.of(a2, a10))
+						.directors(Set.of(d5, d6))
+                        .build(),
+				Series.builder()
+						.title("Buffy the vampire Slayer")
+						.description("A young woman slays vampires and fights supernatural beings with the help of her friends.")
+						.category(Category.ACTION)
+						.startYear(1997)
+						.endYear(2003)
+						.seasons(7)
+						.rating(8.2)
+						.actor(a8)
+						.director(d4)
+						.build()
         );
         //@formatter:on
 
