@@ -3,7 +3,7 @@ package openbet.codehub.smdb.service;
 import lombok.RequiredArgsConstructor;
 import openbet.codehub.smdb.domain.Actor;
 import openbet.codehub.smdb.repository.ActorRepository;
-import openbet.codehub.smdb.transfer.ActorDetails;
+import openbet.codehub.smdb.transfer.PersonDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -29,15 +29,15 @@ public class ActorServiceImpl extends BaseServiceImpl<Actor> implements ActorSer
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly=true, rollbackFor = Exception.class)
-    public List<ActorDetails> findAllLazy() {
-        List<ActorDetails> actorDetails = new ArrayList<>();
-        actorRepository.findAllLazy().forEach(actor -> actorDetails.add(
-                new ActorDetails(
+    public List<PersonDetails> findAllLazy() {
+        List<PersonDetails> personDetails = new ArrayList<>();
+        actorRepository.findAllLazy().forEach(actor -> personDetails.add(
+                new PersonDetails(
                         actor,
                         actor.getMovies(),
                         actor.getSeries()
                 )
         ));
-        return actorDetails;
+        return personDetails;
     }
 }
