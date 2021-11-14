@@ -14,7 +14,5 @@ public interface MovieService extends BaseService<Movie, Long> {
 
     List<Movie> findTopRated(int topNumber);
 
-    void addActor (Movie movie, Actor actor);
-
     List<MovieDetails> findAllLazy();
 }

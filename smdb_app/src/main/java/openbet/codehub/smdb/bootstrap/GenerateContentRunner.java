@@ -83,7 +83,7 @@ public class GenerateContentRunner extends AbstractLogComponent implements Comma
 						.build(),
 				Movie.builder()
 						.title("The Avengers")
-						.description("Avengers asseble")
+						.description("Avengers assemble")
 						.category(Category.ACTION)
 						.year(2012)
 						.rating(8.0)

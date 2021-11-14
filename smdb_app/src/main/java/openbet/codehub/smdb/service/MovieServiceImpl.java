@@ -44,12 +44,6 @@ public class MovieServiceImpl extends BaseServiceImpl<Movie> implements MovieSer
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly=true, rollbackFor = Exception.class)
-    public void addActor(Movie movie, Actor actor) {
-        movie.getActors().add(actor);
-    }
-
-    @Override
-    @Transactional(propagation = Propagation.REQUIRED, readOnly=true, rollbackFor = Exception.class)
     public List<MovieDetails> findAllLazy() {
         List<MovieDetails> movieDetails = new ArrayList<>();
         movieRepository.findAllLazy().forEach(movie -> movieDetails.add(

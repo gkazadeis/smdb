@@ -1,6 +1,5 @@
 package openbet.codehub.smdb.repository;
 
-import openbet.codehub.smdb.domain.Actor;
 import openbet.codehub.smdb.domain.Director;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
