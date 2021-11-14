@@ -25,4 +25,10 @@ public class Producer extends Person {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<Movie> movies = new HashSet<>();
+
+    @JsonIgnore
+    @ManyToMany(mappedBy="producers",fetch=FetchType.LAZY)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Series> series = new HashSet<>();
 }

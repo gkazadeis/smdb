@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface ActorRepository extends JpaRepository<Actor,Long> {
-    @Query("select distinct a from Actor a join fetch a.movies")
+    @Query("select distinct a from Actor a left join fetch a.movies left join fetch a.series")
     List<Actor> findAllLazy();
 }

@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface MovieRepository extends JpaRepository<Movie,Long> {
 
-    @Query("select distinct m from Movie m join fetch m.actors join fetch m.directors join fetch m.producers")
+    @Query("select distinct m from Movie m left join fetch m.actors left join fetch m.directors left join fetch m.producers")
     List<Movie> findAllLazy();
 
 }

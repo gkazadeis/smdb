@@ -1,10 +1,14 @@
 package openbet.codehub.smdb.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -15,42 +19,52 @@ import java.util.Set;
 @Entity
 @Table(name = "SERIES", indexes = {@Index(columnList = "category")})
 @SequenceGenerator(name = "idGenerator", sequenceName = "SERIES_SEQ", initialValue = 1, allocationSize = 1)
-public class Series extends BaseModel {
-    @NotNull(message = "Series's title should be present.")
-    @Column(length = 50, nullable = false)
-    private String title;
-
-    @Column(length = 250, nullable = false)
-    private String description;
+public class Series extends Feature {
 
     @NotNull(message = "Series's start year should be present.")
     @Column(nullable = false)
-    // Should this be Integer instead?
-    private int startYear;
+    private Integer startYear;
 
     @Column
-    // Should this be Integer instead?
-    private int endYear;
+    private Integer endYear;
 
     @NotNull(message = "Series's number of seasons year should be present.")
     @Column(nullable = false)
-    // Should this be Integer instead?
-    private int seasons;
-
-    @Enumerated(EnumType.STRING)
-    @Column(length = 15, nullable = false)
-    private Category category;
-/*
-    // Many to many, good luck with that
-    @Singular
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "starsInSeries")
-    private Set<Actor> actors;
+    private Integer seasons;
 
     @Singular
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "directsSeries")
-    private Set<Director> directors;
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name="ACTORS_SERIES",
+            joinColumns= @JoinColumn(name="SERIES_ID", referencedColumnName="ID"),
+            inverseJoinColumns= @JoinColumn(name="ACTOR_ID", referencedColumnName="ID")
+    )
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Actor> actors = new HashSet<>();
 
     @Singular
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "producesSeries")
-    private Set<Producer> producers;*/
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name="DIRECTORS_SERIES",
+            joinColumns= @JoinColumn(name="SERIES_ID", referencedColumnName="ID"),
+            inverseJoinColumns= @JoinColumn(name="DIRECTOR_ID", referencedColumnName="ID")
+    )
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Director> directors = new HashSet<>();
+
+    @Singular
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name="PRODUCERS_SERIES",
+            joinColumns= @JoinColumn(name="SERIES_ID", referencedColumnName="ID"),
+            inverseJoinColumns= @JoinColumn(name="PRODUCER_ID", referencedColumnName="ID")
+    )
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Producer> producers = new HashSet<>();
 }

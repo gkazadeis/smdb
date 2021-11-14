@@ -21,27 +21,11 @@ import java.util.Set;
 @Entity
 @Table(name = "MOVIES", indexes = {@Index(columnList = "category")})
 @SequenceGenerator(name = "idGenerator", sequenceName = "MOVIES_SEQ", initialValue = 1, allocationSize = 1)
-public class Movie extends BaseModel {
-
-    @NotNull(message = "Movie's title should be present.")
-    @Column(length = 50, nullable = false)
-    private String title;
-
-    @Column(length = 250)
-    private String description;
+public class Movie extends Feature {
 
     @NotNull(message = "Movie's year should be present.")
     @Column(nullable = false)
     private Integer year;
-
-    @Min(value = 0, message = "Rating cannot be lower than 0")
-    @Max(value = 10, message = "Rating cannot be lower than 10")
-    @Column(precision = 4, scale = 2)
-    private Double rating;
-
-    @Enumerated(EnumType.STRING)
-    @Column(length = 15, nullable = false)
-    private Category category;
 
     @Singular
     @JsonIgnore

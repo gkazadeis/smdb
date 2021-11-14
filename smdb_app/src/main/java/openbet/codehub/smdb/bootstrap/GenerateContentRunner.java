@@ -3,10 +3,7 @@ package openbet.codehub.smdb.bootstrap;
 import lombok.RequiredArgsConstructor;
 import openbet.codehub.smdb.base.AbstractLogComponent;
 import openbet.codehub.smdb.domain.*;
-import openbet.codehub.smdb.service.ActorService;
-import openbet.codehub.smdb.service.DirectorService;
-import openbet.codehub.smdb.service.MovieService;
-import openbet.codehub.smdb.service.ProducerService;
+import openbet.codehub.smdb.service.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -21,7 +18,7 @@ public class GenerateContentRunner extends AbstractLogComponent implements Comma
 	private final DirectorService directorService;
 	private final ProducerService producerService;
 	private final MovieService movieService;
-	//private final SeriesService seriesService;
+	private final SeriesService seriesService;
 
 	@Override
 	public void run(String... args) {
@@ -121,6 +118,7 @@ public class GenerateContentRunner extends AbstractLogComponent implements Comma
 		m2.getActors().add(a1);
 		movieService.update(m2);*/
 
+		//@formatter:off
 		Actor a1 = actorService.create(
 				Actor.builder().name("Johnny").surname("Depp").build()
 		);
@@ -149,24 +147,17 @@ public class GenerateContentRunner extends AbstractLogComponent implements Comma
 						.producer(p1)
 						.build());
 
-/*
-        //@formatter:off
-        List<Series> series = seriesService.createAll(
+		seriesService.createAll(
                 Series.builder()
                         .title("Stranger Things")
                         .description("80s nostalgia epic thriller series")
                         .category(Category.HORROR)
                         .startYear(2016)
                         .seasons(3)
-                        .actor(actorService.findBySurname("Ryder"))
+                        .actor(a2)
                         .build()
         );
-
         //@formatter:on
 
-        logger.info("{} series created.", series.size());
-        // Get all series
-        seriesService.findAll().forEach(s -> logger.info("{}", s));
-*/
 	}
 }

@@ -1,16 +1,11 @@
 package openbet.codehub.smdb.service;
 
-import openbet.codehub.smdb.domain.Actor;
-import openbet.codehub.smdb.domain.Director;
 import openbet.codehub.smdb.domain.Series;
+import openbet.codehub.smdb.transfer.SeriesDetails;
+
+import java.util.List;
 
 public interface SeriesService extends BaseService<Series, Long> {
-    /*void addActor(Series movie, Actor actor);
-
-    void addDirector(Series movie, Director director);
-
-    void removeActor(Series movie, Actor actor);
-
-    void removeDirector(Series movie, Director director);*/
+    List<SeriesDetails> findAllLazy();
 
 }

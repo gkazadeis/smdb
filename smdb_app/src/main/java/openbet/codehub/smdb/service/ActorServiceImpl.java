@@ -34,7 +34,8 @@ public class ActorServiceImpl extends BaseServiceImpl<Actor> implements ActorSer
         actorRepository.findAllLazy().forEach(actor -> actorDetails.add(
                 new ActorDetails(
                         actor,
-                        actor.getMovies()
+                        actor.getMovies(),
+                        actor.getSeries()
                 )
         ));
         return actorDetails;
