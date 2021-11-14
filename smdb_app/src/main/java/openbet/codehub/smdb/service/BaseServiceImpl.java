@@ -62,18 +62,21 @@ public abstract class BaseServiceImpl<T extends BaseModel> extends AbstractLogCo
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED, readOnly=true, rollbackFor = Exception.class)
 	public boolean exists(final T entity) {
 		logger.trace("Checking whether {} exists.", entity);
 		return getRepository().existsById(entity.getId());
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED, readOnly=true, rollbackFor = Exception.class)
 	public List<T> findAll() {
 		logger.trace("Retrieving all entities.");
 		return getRepository().findAll();
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED, readOnly=true, noRollbackFor = Exception.class)
 	public T find(Long id) {
 		return getRepository().findById(id).orElseThrow(NoSuchElementException::new);
 	}

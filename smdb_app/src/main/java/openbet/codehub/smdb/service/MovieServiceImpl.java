@@ -1,12 +1,19 @@
 package openbet.codehub.smdb.service;
 
 import lombok.RequiredArgsConstructor;
+import openbet.codehub.smdb.domain.Actor;
 import openbet.codehub.smdb.domain.Movie;
 import openbet.codehub.smdb.repository.MovieRepository;
+import openbet.codehub.smdb.transfer.MovieDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,6 +34,27 @@ public class MovieServiceImpl extends BaseServiceImpl<Movie> implements MovieSer
     @Override
     public Movie findByTitle(final String title) {
         return movieRepository.findAll().stream().filter(m -> m.getTitle().equals(title)).findAny().orElse(null);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly=true, rollbackFor = Exception.class)
+    public void addActor(Movie movie, Actor actor) {
+        movie.getActors().add(actor);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly=true, rollbackFor = Exception.class)
+    public List<MovieDetails> findAllLazy() {
+        List<MovieDetails> movieDetails = new ArrayList<>();
+        movieRepository.findAllLazy().forEach(movie -> movieDetails.add(
+                new MovieDetails(
+                        movie,
+                        movie.getActors(),
+                        movie.getDirectors(),
+                        movie.getProducers()
+                )
+        ));
+        return movieDetails;
     }
 
 }

@@ -1,6 +1,5 @@
 package openbet.codehub.smdb.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -15,6 +14,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@MappedSuperclass
 public class Person extends BaseModel {
     @NotNull(message = "Person's first name should be present.")
     @Column(length = 20, nullable = false)

@@ -1,16 +1,18 @@
 package openbet.codehub.smdb.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.constraints.NotNull;;
+import java.util.HashSet;
+import java.util.Set;
 
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Data
 @SuperBuilder
 @NoArgsConstructor
@@ -41,24 +43,40 @@ public class Movie extends BaseModel {
     @Column(length = 15, nullable = false)
     private Category category;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @Singular
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name="ACTORS_MOVIES",
             joinColumns= @JoinColumn(name="MOVIE_ID", referencedColumnName="ID"),
             inverseJoinColumns= @JoinColumn(name="ACTOR_ID", referencedColumnName="ID")
     )
-    private List<Actor> actors;
-
-    // Many to many, good luck with that
-    /*@Singular
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "starsInMovies")
-    private Set<Actor> actors;
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Actor> actors = new HashSet<>();
 
     @Singular
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "directsMovies")
-    private Set<Director> directors;
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name="DIRECTORS_MOVIES",
+            joinColumns= @JoinColumn(name="MOVIE_ID", referencedColumnName="ID"),
+            inverseJoinColumns= @JoinColumn(name="DIRECTOR_ID", referencedColumnName="ID")
+    )
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Director> directors = new HashSet<>();
 
     @Singular
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "producesMovies")
-    private Set<Producer> producers;*/
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name="PRODUCERS_MOVIES",
+            joinColumns= @JoinColumn(name="MOVIE_ID", referencedColumnName="ID"),
+            inverseJoinColumns= @JoinColumn(name="PRODUCER_ID", referencedColumnName="ID")
+    )
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Producer> producers = new HashSet<>();
+
 }

@@ -1,5 +1,6 @@
 package openbet.codehub.smdb.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -18,17 +20,9 @@ import java.util.Set;
 @Table(name = "DIRECTORS")
 @SequenceGenerator(name = "idGenerator", sequenceName = "DIRECTORS_SEQ", initialValue = 1, allocationSize = 1)
 public class Director extends Person {
-    /*@ManyToMany
-    @JoinTable(
-            name = "movie_directs",
-            joinColumns = @JoinColumn(name = "director_id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id"))
-    Set<Movie> directsMovies;
-
-    @ManyToMany
-    @JoinTable(
-            name = "series_directs",
-            joinColumns = @JoinColumn(name = "director_id"),
-            inverseJoinColumns = @JoinColumn(name = "series_id"))
-    Set<Series> directsSeries;*/
+    @JsonIgnore
+    @ManyToMany(mappedBy="directors",fetch=FetchType.LAZY)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Movie> movies = new HashSet<>();
 }
